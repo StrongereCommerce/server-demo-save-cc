@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Cardknox Payment Form</title>
+	</head>
+	<body>
+		<h1>Cardknox Payment Form</h1>
+		<form id="payment-form">
+			<label for="xCardNum">Card Number:</label>
+			<input type="text" id="xCardNum" name="xCardNum" required /><br />
+
+			<label for="xExp">Expiration Date (MMYY):</label>
+			<input type="text" id="xExp" name="xExp" required /><br />
+
+			<label for="xStreet">Street:</label>
+			<input type="text" id="xStreet" name="xStreet" required /><br />
+
+			<label for="xZip">Zip:</label>
+			<input type="text" id="xZip" name="xZip" required /><br />
+
+			<label for="xName">Name:</label>
+			<input type="text" id="xName" name="xName" required /><br />
+
+			<button type="submit">Save Card Method</button>
+		</form>
+
+		<script>
+			document
+				.getElementById("payment-form")
+				.addEventListener("submit", function (e) {
+					e.preventDefault();
+
+					const formData = {
+						xCardNum: document.getElementById("xCardNum").value,
+						xExp: document.getElementById("xExp").value,
+						xStreet: document.getElementById("xStreet").value,
+						xZip: document.getElementById("xZip").value,
+						xName: document.getElementById("xName").value,
+					};
+
+					fetch("/save-card", {
+						method: "POST",
+						body: JSON.stringify(formData),
+						headers: {
+							"Content-Type": "application/json",
+						},
+					})
+						.then((response) => response.json())
+						.then((data) => {
+							if (data.error) {
+								alert("Card method save failed: " + data.error);
+							} else {
+								alert("Card method saved successfully");
+								// You can perform any additional actions here on success.
+							}
+						})
+						.catch((error) => {
+							console.error("Error:", error);
+						});
+				});
+		</script>
+	</body>
+</html>
