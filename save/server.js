@@ -7,7 +7,7 @@ const app = express();
 app.use(bodyParser.json());
 // Define your Cardknox credentials
 const cardknoxCredentials = {
-	xKey: "strongecommedevd28c303e478c4bc2a1698897e4fa3d", // Replace with your Cardknox credentials
+	xKey: "{key}", // Replace with your Cardknox credentials
 	xVersion: "4.5.9",
 	xSoftwareName: "YourSoftwareName",
 	xSoftwareVersion: "1.0.0",
